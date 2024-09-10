@@ -25,11 +25,11 @@ const Navbar = () => {
     >
       <Logo />
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-        {!!isLoading && <Spinner />}
+        {isLoading && <Spinner />}
 
         {isSignedIn && !isLoading ? (
           <>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" asChild>
               <Link href="/documents">Enter potion</Link>
             </Button>
             <UserButton />

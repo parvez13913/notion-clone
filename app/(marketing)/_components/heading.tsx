@@ -1,9 +1,16 @@
 "use client";
 
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
+
+import { SignInButton, useUser } from "@clerk/clerk-react";
+import { useConvexAuth } from "convex/react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const Heading = () => {
+  const { isSignedIn, isLoaded } = useUser();
+  const { isAuthenticated, isLoading } = useConvexAuth();
   return (
     <div className="max-W-3xl space-y-4">
       <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
@@ -14,10 +21,30 @@ const Heading = () => {
         Potion is the connected workspace where <br /> better faster work
         happens.
       </h3>
-      <Button>
-        Enter Potion
-        <ArrowRight className="h-4 w-4 ml-2" />
-      </Button>
+      <div className="w-full flex items-center justify-center"></div>
+
+      <div className="w-full flex items-center justify-center">
+        {isLoading && <Spinner size="lg" />}
+      </div>
+
+      {isSignedIn && isLoaded ? (
+        <Button asChild>
+          <Link href="/documents">
+            Enter potion
+            <ArrowRight className="h-4 w-4 ml-2" />
+          </Link>
+        </Button>
+      ) : (
+        !isAuthenticated &&
+        !isLoading && (
+          <SignInButton mode="modal">
+            <Button>
+              Get potion free
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </SignInButton>
+        )
+      )}
     </div>
   );
 };
