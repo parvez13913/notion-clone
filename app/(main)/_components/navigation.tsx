@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
+import UserItem from "./user-item";
+
 const Navigation = () => {
   const pathName = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -110,7 +112,7 @@ const Navigation = () => {
         </div>
 
         <div>
-          <p>Action</p>
+          <UserItem />
         </div>
 
         <div className="mt-4">
