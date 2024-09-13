@@ -3,13 +3,12 @@
 import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 
-import { SignInButton, useUser } from "@clerk/clerk-react";
+import { SignInButton } from "@clerk/clerk-react";
 import { useConvexAuth } from "convex/react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const Heading = () => {
-  const { isSignedIn, isLoaded } = useUser();
   const { isAuthenticated, isLoading } = useConvexAuth();
   return (
     <div className="max-W-3xl space-y-4">
@@ -27,7 +26,7 @@ const Heading = () => {
         {isLoading && <Spinner size="lg" />}
       </div>
 
-      {isSignedIn && isLoaded ? (
+      {isAuthenticated && !isLoading ? (
         <Button asChild>
           <Link href="/documents">
             Enter potion

@@ -8,11 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
 
 import { useConvexAuth } from "convex/react";
-import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, UserButton } from "@clerk/clerk-react";
 import Link from "next/link";
 
 const Navbar = () => {
-  const { isSignedIn } = useUser();
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   const scrolled = useScrollTop();
@@ -27,7 +26,7 @@ const Navbar = () => {
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
         {isLoading && <Spinner />}
 
-        {isSignedIn && !isLoading ? (
+        {isAuthenticated && !isLoading ? (
           <>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/documents">Enter potion</Link>

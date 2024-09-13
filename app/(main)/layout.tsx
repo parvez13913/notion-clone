@@ -2,14 +2,12 @@
 
 import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
-import { useUser } from "@clerk/clerk-react";
 
 import Navigation from "./_components/navigation";
 import { Spinner } from "@/components/spinner";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading } = useConvexAuth();
-  const { isSignedIn } = useUser();
+  const { isLoading, isAuthenticated } = useConvexAuth();
 
   if (isLoading) {
     return (
@@ -19,7 +17,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!isSignedIn) {
+  if (!isAuthenticated) {
     return redirect("/");
   }
   return (
