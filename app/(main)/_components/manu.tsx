@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -21,7 +22,7 @@ interface ManuProps {
   documentId: Id<"documents">;
 }
 
-const Manu = ({ documentId }: ManuProps) => {
+export const Manu = ({ documentId }: ManuProps) => {
   const router = useRouter();
   const { user } = useUser();
   const archive = useMutation(api.documents.archive);
@@ -63,4 +64,6 @@ const Manu = ({ documentId }: ManuProps) => {
   );
 };
 
-export default Manu;
+Manu.Skeleton = function MenuSkleton() {
+  return <Skeleton className="h-10 w-10" />;
+};

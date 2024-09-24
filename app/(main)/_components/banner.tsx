@@ -39,7 +39,7 @@ export const Banner = ({ documentId }: BannerProps) => {
   };
 
   return (
-    <div className="w-full bg-rose-500 text-center text-sm text-white flex items-center justify-center gap-x-2">
+    <div className="w-full bg-rose-500 text-center text-sm text-white flex items-center justify-center gap-x-2 py-3">
       <p>This is in the trash</p>
       <Button
         size="sm"
