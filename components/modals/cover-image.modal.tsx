@@ -1,12 +1,12 @@
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { UseCoverImage } from "@/hooks/use-cover-image";
-import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
-import { useState } from "react";
 import { useEdgeStore } from "@/lib/edgestore";
 import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
-import { Id } from "@/convex/_generated/dataModel";
+import { useState } from "react";
 import { SingleImageDropzone } from "../single-image-dropzon";
+import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
 
 export const CoverImageModal = () => {
   const update = useMutation(api.documents.update);

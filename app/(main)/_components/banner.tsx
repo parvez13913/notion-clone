@@ -4,7 +4,6 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { toast } from "sonner";
 
 interface BannerProps {
@@ -22,7 +21,7 @@ export const Banner = ({ documentId }: BannerProps) => {
     toast.promise(promise, {
       loading: "Deleting note..",
       success: "Note deleted",
-      error: "Fail to delet note",
+      error: "Fail to delete note",
     });
 
     router.push("/documents");
