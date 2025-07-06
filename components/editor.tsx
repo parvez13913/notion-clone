@@ -1,5 +1,6 @@
 "use client";
 
+import { useEdgeStore } from "@/lib/edgestore";
 import type { BlockNoteEditor, PartialBlock } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
@@ -20,6 +21,13 @@ export const Editor = ({
 }: EditorProps) => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { edgestore } = useEdgeStore();
+
+  const handelUpload = async (file: File) => {
+    const response = await edgestore.publicFiles.upload({ file });
+
+    return response.url;
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -29,6 +37,7 @@ export const Editor = ({
     initialContent: initialContent
       ? (JSON.parse(initialContent) as PartialBlock[])
       : undefined,
+    uploadFile: handelUpload,
   });
 
   if (!mounted) {
