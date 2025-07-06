@@ -1,6 +1,8 @@
 "use client";
 
+import { api } from "@/convex/_generated/api";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
 import {
   ChevronsLeft,
   MenuIcon,
@@ -10,25 +12,23 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import Item from "./item";
 import { toast } from "sonner";
+import { useMediaQuery } from "usehooks-ts";
+import Item from "./item";
 
-import DocumentList from "./document-list";
+import TrashBox from "@/app/(marketing)/_components/trash-box";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import TrashBox from "@/app/(marketing)/_components/trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-setting";
-import UserItem from "./user-item";
+import DocumentList from "./document-list";
 import { Navbar } from "./navbar";
+import UserItem from "./user-item";
 
 const Navigation = () => {
   const search = useSearch();
@@ -42,6 +42,7 @@ const Navigation = () => {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const router = useRouter();
 
   useEffect(() => {
     if (isMobile) {
@@ -117,7 +118,9 @@ const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitle" });
+    const promise = create({ title: "Untitle" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    );
 
     toast.promise(promise, {
       loading: "Creating a new note...",
